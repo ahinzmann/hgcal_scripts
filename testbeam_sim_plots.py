@@ -1,6 +1,6 @@
 print("import")
 
-from ROOT import *
+from ROOT import TChain, gROOT, gStyle, TH1F, TCanvas, TLegend
 import ROOT
 import array, math
 #import numpy as np
@@ -30,9 +30,11 @@ if __name__=="__main__":
  particle="Electron"
  #particle="Muon"
  #particle="delay0" #noDigi, delay13, delay15, localTime
+ stackname="_cernstack"
 
  simulation_output={}
- for particleEnergy in ([1,1.6,2,3,4,5,5.6] if particle=="Electron" else [5]): #[2,3,4,5,6,7,8,9,10]
+ #for particleEnergy in ([1,1.6,2,3,4,5,5.6] if particle=="Electron" else [5]): #[2,3,4,5,6,7,8,9,10] # DESY stack
+ for particleEnergy in ([20] if particle=="Electron" else [5]): #[2,3,4,5,6,7,8,9,10] # CERN stack
   
   version=str(particleEnergy)+"GeV"+particle
 
@@ -63,7 +65,8 @@ if __name__=="__main__":
   #gROOT.LoadMacro("CMS_lumi.C");
   #iPeriod = 4;       #// 1=7TeV, 2=8TeV, 3=7+8TeV, 7=7+8+13TeV 
   #iPos = 11;
-  layers=8
+  #layers=8 # DESY stack
+  layers=15 # CERN stack
   x_offset=1 #cm
   y_offset=160 #cm
   z_offset=406.581 #cm (zHGCal6=zHGCalHEmix1)
@@ -77,11 +80,11 @@ if __name__=="__main__":
   #("n_DigisNano",0,100,100,"nanoaodFlatTable_hgcDigiHEbackTable__GENSIMDIGIRECO","size","Number of Digis","Events"),
   #("DigiNano_data",0,500,100,"nanoaodFlatTable_hgcDigiHEbackTable__GENSIMDIGIRECO","data","ADC counts","Hits per event"),
   #("n_Digis",0,100,100,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","size","Number of Digis","Events"),
-  #("Digi_n_vs_layer",0.5,layers+0.5,layers,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Layer number","Number of Digis per layer"),
-  ("Digi_n_integral",-0.5,80.5,81,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Number of Digis per event","Fraction of events"),
+  ("Digi_n_vs_layer",0.5,layers+0.5,layers,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Layer number","Number of Digis per layer"),
+  ("Digi_n_integral",-0.5,300.5,301,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Number of Digis per event","Fraction of events"),
   #("Digi_data",0,500,100,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC counts","Hits per event"),
-  ("Digi_data_integral",0,4000,200,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC count sum per event","Fraction of events"),
-  #("Digi_data_vs_layer",0.5,layers+0.5,layers,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Layer number","ADC counts per layer"),
+  ("Digi_data_integral",0,10000,200,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC count sum per event","Fraction of events"),
+  ("Digi_data_vs_layer",0.5,layers+0.5,layers,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Layer number","ADC counts per layer"),
   #("Digi_dataoutoftime",0,500,100,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Out-of-time ADC counts","Hits per event"),
   #("Digi_dataoutoftime_vs_layer",0.5,layers+0.5,layers,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Layer number","Out-of-time ADC counts per layer"),
   #("n_UncalibratedRecHits",0,100,100,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","size","Number of uncalibrated RecHits","Events"),
@@ -126,7 +129,7 @@ if __name__=="__main__":
   
   events=TChain("Events")
   #events.Add("/data/dust/user/hinzmann/hgcal/8apr2025_th025MIP_10000/gensimdigireco_"+particle.replace("Electron","").replace("Muon","muon")+str(particleEnergy)+".root")
-  events.Add("gensimdigireco_"+particle.replace("Electron","electron").replace("Muon","muon")+str(particleEnergy)+".root")
+  events.Add("gensimdigireco_"+particle.replace("Electron","electron").replace("Muon","muon")+str(particleEnergy)+stackname+".root")
   i=0
   for event in events:
     if i%100==0: print("event",i)
@@ -163,7 +166,7 @@ if __name__=="__main__":
            l=layer(p.id().rawId())
           if l>layers: continue
           
-          hists[name].Fill(x,y)
+          hists[name].Fill(l,y)
          else: 
            if hasattr(p,"z"):
              z=p.z()
@@ -252,8 +255,8 @@ if __name__=="__main__":
   #// writing the lumi information and the CMS "logo"
   #CMS_lumi( c, iPeriod, iPos );
     
-    canvas.SaveAs(name+"_"+version+".pdf")
-    canvas.SaveAs(name+"_"+version+".root")
+    canvas.SaveAs(name+"_"+version+stackname+".pdf")
+    canvas.SaveAs(name+"_"+version+stackname+".root")
     
     #if "LayerCluster_energy_integral" in name:
     if "Digi_data_integral" in name and not "layer" in name:
@@ -265,7 +268,7 @@ if __name__=="__main__":
        pointsYresolutionErr.append(hists[name].GetStdDevError()/hists[name].GetMean()*100.)
 
  print(simulation_output)
- with open('simulation_output.pkl', 'wb') as f:
+ with open("simulation_output"+stackname+".pkl", 'wb') as f:
     pickle.dump(simulation_output, f)
 
  if len(pointsX)>1:
@@ -283,8 +286,8 @@ if __name__=="__main__":
   g.GetXaxis().SetTitle("Beam energy [GeV]")
   #g.GetYaxis().SetTitle("Reconstructed energy [GeV]")
   g.GetYaxis().SetTitle("ADC count sum")
-  canvas.SaveAs("Energy_reconstruction_response.pdf")
-  canvas.SaveAs("Energy_reconstruction_response.root")
+  canvas.SaveAs("Energy_reconstruction_response"+stackname+".pdf")
+  canvas.SaveAs("Energy_reconstruction_response"+stackname+".root")
 
   canvas = TCanvas("Energy_reconstruction_resolution", "Energy_reconstruction_resolution", 0, 0, 300, 300)
   g=TGraphErrors(len(pointsX),pointsX,pointsYresolution,pointsXErr,pointsYresolutionErr)
@@ -296,5 +299,5 @@ if __name__=="__main__":
   g.SetTitle("")
   g.GetXaxis().SetTitle("Beam energy [GeV]")
   g.GetYaxis().SetTitle("Energy resolution [%]")
-  canvas.SaveAs("Energy_reconstruction_resolution.pdf")
-  canvas.SaveAs("Energy_reconstruction_resolution.root")
+  canvas.SaveAs("Energy_reconstruction_resolution"+stackname+".pdf")
+  canvas.SaveAs("Energy_reconstruction_resolution"+stackname+".root")
