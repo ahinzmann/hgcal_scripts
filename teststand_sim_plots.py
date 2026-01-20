@@ -33,7 +33,7 @@ if __name__=="__main__":
  #particle="delay0" #noDigi, delay13, delay15, localTime
  x_offset=0 #cm
  
- scenario="HE-10-Sector"
+ scenario="HE-60-Sector"
  
  if scenario=="D":
    # D Module
@@ -101,7 +101,7 @@ if __name__=="__main__":
  
  elif scenario=="HE-10-Sector":
    # Sector with Si+Sci
-   postfix="random_cosmics_he10_xFlat_yFlat_z360_phiFlat_cos2Theta"
+   postfix="random_cosmics_he_10deg_xFlat_yFlat_z360_phiFlat_cos2Theta"
    r_min=41.86 #rMinHGCal6
    r_max=263.45 #rPosV2
    degree=10
@@ -109,15 +109,15 @@ if __name__=="__main__":
    layers=21
    y_offset=0 #cm
    z_offset=361.971 #cm (zHGCal2=zHGCalHEsil1)
-   z_max=235 #cm
-   flux=1302000 # per hour
+   z_max=160 #cm
+   flux=15000000 # per hour
    y_min=0
    y_max=310
    x_max=70 #cm
 
  elif scenario=="HE-30-Sector":
    # Sector with Si+Sci
-   postfix="random_cosmics_he30_xFlat_yFlat_z360_phiFlat_cos2Theta"
+   postfix="random_cosmics_he_30deg_xFlat_yFlat_z360_phiFlat_cos2Theta"
    r_min=41.86 #rMinHGCal6
    r_max=263.45 #rPosV2
    degree=30
@@ -125,15 +125,15 @@ if __name__=="__main__":
    layers=21
    y_offset=0 #cm
    z_offset=361.971 #cm (zHGCal2=zHGCalHEsil1)
-   z_max=235 #cm
-   flux=1302000 # per hour
+   z_max=160 #cm
+   flux=15000000  # per hour
    y_min=0
    y_max=310
-   x_max=70 #cm
+   x_max=100 #cm
 
  elif scenario=="HE-60-Sector":
    # Sector with Si+Sci
-   postfix="random_cosmics_he70_xFlat_yFlat_z360_phiFlat_cos2Theta"
+   postfix="random_cosmics_he_60deg_xFlat_yFlat_z360_phiFlat_cos2Theta"
    r_min=41.86 #rMinHGCal6
    r_max=263.45 #rPosV2
    degree=60
@@ -141,11 +141,11 @@ if __name__=="__main__":
    layers=21
    y_offset=0 #cm
    z_offset=361.971 #cm (zHGCal2=zHGCalHEsil1)
-   z_max=235 #cm
-   flux=1302000 # per hour
+   z_max=160 #cm
+   flux=15000000  # per hour
    y_min=0
    y_max=310
-   x_max=70 #cm
+   x_max=140 #cm
 
  elif scenario=="HGCAL-Sector":
    # Sector with Si+Sci
@@ -280,7 +280,7 @@ if __name__=="__main__":
   b="/data/dust/user/hinzmann/hgcal"
   for d in os.listdir(b):
     for f in os.listdir(b+"/"+d):
-       if "gensimdigireco_muon5_"+postfix.replace("_sci","")+".root" in f:
+       if "gensimdigireco_muon5_"+postfix.replace("_sci","").replace("_10deg","").replace("_30deg","").replace("_60deg","")+".root" in f:
          files+=[b+"/"+d+"/"+f]
   print(files)
   events=TChain("Events")
