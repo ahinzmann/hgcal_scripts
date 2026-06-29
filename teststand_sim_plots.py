@@ -33,11 +33,12 @@ if __name__=="__main__":
  #particle="delay0" #noDigi, delay13, delay15, localTime
  x_offset=0 #cm
  
- scenario="HE-60-Sector"
+ scenario="E"
+ #scenario="HGCAL-Sector"
  
  if scenario=="D":
    # D Module
-   postfix="random_cosmics_xFlat_yFlat_z400_phiFlat_cos2Theta"
+   postfix="random_cosmics_teststand_xFlat_yFlat_z400_phiFlat_cos2Theta"
    r_min=153.705 # D-Module
    r_max=183.017 # D-Module
    degree=10
@@ -53,7 +54,7 @@ if __name__=="__main__":
 
  elif scenario=="E":
    # E Module
-   postfix="random_cosmics_xFlat60_yFlat200_z400_phiFlat_cos2Theta"
+   postfix="random_cosmics_teststand_xFlat45_yFlat45_z400_phiFlat_cos2Theta_noCluster_time0_son6_trigtime"
    r_min=183.017 # E-Module
    r_max=217.920 # E-Module
    degree=10
@@ -149,7 +150,8 @@ if __name__=="__main__":
 
  elif scenario=="HGCAL-Sector":
    # Sector with Si+Sci
-   postfix="random_cosmics_hgcal_xFlat70_yFlat_z400_phiFlat_cos2Theta"
+   postfix="random_cosmics_hgcal_xFlat_yFlat_z300_phiFlat_cos2Theta_thrSci0p25_noCluster_time0_son6"
+   #postfix="random_cosmics_cms_xFlat_yFlat_z300_phiFlat_cos2Theta_thrSci0p25_noCluster_time0_son6"
    r_min=41.86 #rMinHGCal6
    r_max=263.45 #rPosV2
    degree=10
@@ -277,11 +279,13 @@ if __name__=="__main__":
   hists={}
   
   files=[]
-  b="/data/dust/user/hinzmann/hgcal"
-  for d in os.listdir(b):
-    for f in os.listdir(b+"/"+d):
-       if "gensimdigireco_muon5_"+postfix.replace("_sci","").replace("_10deg","").replace("_30deg","").replace("_60deg","")+".root" in f:
-         files+=[b+"/"+d+"/"+f]
+  #b="/data/dust/user/hinzmann/hgcal"
+  #for d in os.listdir(b):
+  #  for f in os.listdir(b+"/"+d):
+  #     if "gensimdigireco_muon5_"+postfix.replace("_sci","").replace("_10deg","").replace("_30deg","").replace("_60deg","")+".root" in f:
+  #       files+=[b+"/"+d+"/"+f]
+  files=["/afs/desy.de/user/h/hinzmann/hgcal/CMSSW_17_0_0_pre1/src/"+"gensimdigireco_muon5_"+postfix.replace("_sci","").replace("_10deg","").replace("_30deg","").replace("_60deg","")+"_1.root"]
+  #files=["step2.root"]
   print(files)
   events=TChain("Events")
   total=0
