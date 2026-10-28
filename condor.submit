@@ -3,7 +3,7 @@
 universe          = vanilla
 notification      = Error
 notify_user       = andreas.hinzmann@desy.de
-initialdir        = /afs/desy.de/user/h/hinzmann/hgcal/CMSSW_15_1_0_pre5/src/hgcal_scripts
+initialdir        = /afs/desy.de/user/h/hinzmann/hgcal/CMSSW_20_0_0_patch1/src/hgcal_scripts
 #output            = condor_job$(JobId).o
 #error             = condor_job$(JobId).e
 #log               = condor_job$(JobId).log

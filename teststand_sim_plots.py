@@ -54,7 +54,8 @@ if __name__=="__main__":
 
  elif scenario=="E":
    # E Module
-   postfix="random_cosmics_teststand_xFlat45_yFlat45_z400_phiFlat_cos2Theta_noCluster_time0_son6_trigtime"
+   #postfix="random_cosmics_teststand_xFlat45_yFlat45_z400_phiFlat_cos2Theta_noCluster_time0_son6_trigtime"
+   postfix="teststand_2026Sep18"
    r_min=183.017 # E-Module
    r_max=217.920 # E-Module
    degree=10
@@ -243,26 +244,26 @@ if __name__=="__main__":
   ("LayerCluster_y_vs_z",0,z_max,100,"recoCaloClusters_"+layerClusters+"__GENSIMDIGIRECO","y","LayerCluster z [cm]","LayerCluster y [cm]"),
   ("LayerCluster_y_vs_x",-x_max,x_max,100,"recoCaloClusters_"+layerClusters+"__GENSIMDIGIRECO","y","LayerCluster x [cm]","LayerCluster y [cm]"),
   ("LayerCluster_energy_integral",0,10,100,"recoCaloClusters_"+layerClusters+"__GENSIMDIGIRECO","energy","Reconstructed Energy [GeV]",eventlabel),
-  ("n_MultiClusters",0,10,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","size","Number of MultiClusters","Events"),
-  ("MultiCluster_energy",0,5,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","energy","MultiCluster Energy [GeV]","Clusters "+varlabel),
-  ("MultiCluster_x",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","x","MultiCluster x [cm]","Cluster "+varlabel),
-  ("MultiCluster_y",y_min,y_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","MultiCluster y [cm]","Clusters "+varlabel),
-  ("MultiCluster_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","z","MultiCluster z [cm]","Clusters "+varlabel),
-  ("MultiCluster_energy_vs_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","energy","MultiCluster z [cm]","Energy sum per event [GeV]"),
-  ("MultiCluster_theta",-2,2,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","theta","MultiCluster #theta","Cluster "+varlabel),
-  ("MultiCluster_phi",0,6.2831,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","phi","MultiCluster #phi","Clusters "+varlabel),
-  ("MultiCluster_x_vs_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","x","MultiCluster z [cm]","LayerCluster x [cm]"),
-  ("MultiCluster_y_vs_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","MultiCluster z [cm]","LayerCluster y [cm]"),
-  ("MultiCluster_y_vs_x",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","LayerCluster x [cm]","LayerCluster y [cm]"),
+  #("n_MultiClusters",0,10,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","size","Number of MultiClusters","Events"),
+  #("MultiCluster_energy",0,5,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","energy","MultiCluster Energy [GeV]","Clusters "+varlabel),
+  #("MultiCluster_x",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","x","MultiCluster x [cm]","Cluster "+varlabel),
+  #("MultiCluster_y",y_min,y_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","MultiCluster y [cm]","Clusters "+varlabel),
+  #("MultiCluster_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","z","MultiCluster z [cm]","Clusters "+varlabel),
+  #("MultiCluster_energy_vs_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","energy","MultiCluster z [cm]","Energy sum per event [GeV]"),
+  #("MultiCluster_theta",-2,2,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","theta","MultiCluster #theta","Cluster "+varlabel),
+  #("MultiCluster_phi",0,6.2831,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","phi","MultiCluster #phi","Clusters "+varlabel),
+  #("MultiCluster_x_vs_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","x","MultiCluster z [cm]","LayerCluster x [cm]"),
+  #("MultiCluster_y_vs_z",0,z_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","MultiCluster z [cm]","LayerCluster y [cm]"),
+  #("MultiCluster_y_vs_x",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","LayerCluster x [cm]","LayerCluster y [cm]"),
 
   ("LayerCluster_energy_at100",0,5,100,"recoCaloClusters_"+layerClusters+"__GENSIMDIGIRECO","energy","LayerCluster Energy [GeV]","Clusters "+varlabel),
   ("LayerCluster_x_at100",-x_max,x_max,100,"recoCaloClusters_"+layerClusters+"__GENSIMDIGIRECO","x","LayerCluster x [cm]","Clusters "+varlabel),
   ("LayerCluster_y_at100",y_min,y_max,100,"recoCaloClusters_"+layerClusters+"__GENSIMDIGIRECO","y","LayerCluster y [cm]","Clusters "+varlabel),
   ("LayerCluster_y_vs_x_at100",-x_max,x_max,100,"recoCaloClusters_"+layerClusters+"__GENSIMDIGIRECO","y","LayerCluster x [cm]","LayerCluster y [cm]"),
-  ("MultiCluster_energy_at100",0,5,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","energy","MultiCluster Energy [GeV]","Clusters "+varlabel),
-  ("MultiCluster_x_at100",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","x","MultiCluster x [cm]","Cluster "+varlabel),
-  ("MultiCluster_y_at100",y_min,y_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","MultiCluster y [cm]","Clusters "+varlabel),
-  ("MultiCluster_y_vs_x_at100",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","LayerCluster x [cm]","LayerCluster y [cm]"),
+  #("MultiCluster_energy_at100",0,5,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","energy","MultiCluster Energy [GeV]","Clusters "+varlabel),
+  #("MultiCluster_x_at100",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","x","MultiCluster x [cm]","Cluster "+varlabel),
+  #("MultiCluster_y_at100",y_min,y_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","MultiCluster y [cm]","Clusters "+varlabel),
+  #("MultiCluster_y_vs_x_at100",-x_max,x_max,100,"recoHGCalMultiClusters_hgcalMultiClusters__GENSIMDIGIRECO","y","LayerCluster x [cm]","LayerCluster y [cm]"),
     ]
   #histograms=[]
   for l in range(1,layers+1):
@@ -284,7 +285,7 @@ if __name__=="__main__":
   #  for f in os.listdir(b+"/"+d):
   #     if "gensimdigireco_muon5_"+postfix.replace("_sci","").replace("_10deg","").replace("_30deg","").replace("_60deg","")+".root" in f:
   #       files+=[b+"/"+d+"/"+f]
-  files=["/afs/desy.de/user/h/hinzmann/hgcal/CMSSW_17_0_0_pre1/src/"+"gensimdigireco_muon5_"+postfix.replace("_sci","").replace("_10deg","").replace("_30deg","").replace("_60deg","")+"_1.root"]
+  files=["/afs/desy.de/user/h/hinzmann/hgcal/CMSSW_20_0_0_patch1/src/gensimdigireco_muon5_teststand_2026Sep18_1.root"]
   #files=["step2.root"]
   print(files)
   events=TChain("Events")
