@@ -53,7 +53,7 @@ if __name__=="__main__":
  #particle="PiMinus"
  #particle="Muon"
  #particle="delay0" #noDigi, delay13, delay15, localTime
- stackname="_cernstack_2026Oct28"
+ stackname="_cernstack_2026Nov4v7"
  #layers=8 # DESY stack
  layers=15 # CERN stack
  rings=8 # E module
@@ -90,10 +90,12 @@ if __name__=="__main__":
              (15,3,6), 
              (15,5,5), 
              ] #layer,ring,phi
+ veto_tiles=[]
 
  simulation_output={}
  #for particleEnergy in ([1,1.6,2,3,4,5,5.6] if particle=="Electron" else [5]): #[2,3,4,5,6,7,8,9,10] # DESY stack
- for particleEnergy in ([20,100] if particle=="Electron" else( [50,100] if particle=="PiMinus" else [5])): #[2,3,4,5,6,7,8,9,10] # CERN stack
+ for particleEnergy in ([20,40,50,60,80,100] if particle=="Electron" else([200] if particle=="Muon" else( [50,100] if particle=="PiMinus" else [5]))): #[2,3,4,5,6,7,8,9,10] # CERN stack
+ #for particleEnergy in [100]:
   
   version=str(particleEnergy)+"GeV"+particle
 
@@ -129,7 +131,7 @@ if __name__=="__main__":
   #("n_DigisNano",0,100,100,"nanoaodFlatTable_hgcDigiHEbackTable__GENSIMDIGIRECO","size","Number of Digis","Events"),
   #("DigiNano_data",0,500,100,"nanoaodFlatTable_hgcDigiHEbackTable__GENSIMDIGIRECO","data","ADC counts","Hits per event"),
   #("n_Digis",0,100,100,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","size","Number of Digis","Events"),
-  ("Digi_n_vs_layer",0.5,layers+0.5,layers,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Layer number","Number of Digis per layer"),
+  #("Digi_n_vs_layer",0.5,layers+0.5,layers,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Layer number","Number of Digis per layer"),
   #("Digi_n_integral",-0.5,300.5,301,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Number of Digis per event","Fraction of events"),
   #("Digi_data",0,500,100,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC counts","Hits per event"),
   ("Digi_data_integral",0,200000,200,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC count sum per event","Fraction of events"),
@@ -139,10 +141,10 @@ if __name__=="__main__":
   #("n_SimHits",0,1000,100,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","size","Number of SimHits","Events"),
   #("SimHit_n_vs_layer",0.5,layers+0.5,layers,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","Layer number","SimHits per layer"),
   #("SimHit_energy",0,0.005,100,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","SimHit energy [MIP]","Hits per event"),
-  ("SimHit_energy_integral",0,400,200,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","SimHit energy [MIP]","Hits per event"),
+  ("SimHit_energy_integral",0,800,400,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","SimHit energy [MIP]","Hits per event"),
   ("SimHit_energy_vs_layer",0.5,layers+0.5,layers,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","Layer number","SimHit energy per layer [MIP]"),
   #("n_UncalibratedRecHits",0,100,100,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","size","Number of uncalibrated RecHits","Events"),
-  ("UncalibratedRecHits_n_vs_layer",0.5,layers+0.5,layers,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Layer number","Number of RecHits per layer"),
+  #("UncalibratedRecHits_n_vs_layer",0.5,layers+0.5,layers,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Layer number","Number of RecHits per layer"),
   ("UncalibratedRecHits_amplitude_integral",0,1000,100,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of MIPs","Hits per event"),
   ("UncalibratedRecHits_amplitude_vs_layer",0.5,layers+0.5,layers,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Layer number","Number of MIPs per layer"),
   #("n_RecHits",0,100,100,"HGCRecHitsSorted_HGCalRecHit_HGCHEBRecHits_GENSIMDIGIRECO","size","Number of calibrated RecHits","Events"),
@@ -170,14 +172,14 @@ if __name__=="__main__":
   #histograms=[]
   for l in range(1,layers+1):
     histograms+=[
-  ("Digi_n_integral_in_layer"+str(l),-0.5,40.5,41,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Number of Digis per layer","Fraction of events"),
+  #("Digi_n_integral_in_layer"+str(l),-0.5,40.5,41,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","Number of Digis per layer","Fraction of events"),
   ("Digi_data_integral_in_layer"+str(l),0,20000,200,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC count sum per layer","Fraction of events"),
   ("Digi_data_integral_3D_in_layer"+str(l),0,20000,200,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC count sum per tile","Fraction of events"),
   #("SimHit_n_integral_in_layer"+str(l),0,1000,100,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","Number of SimHits per layer","Fraction of events"),
-  ("SimHit_energy_integral_in_layer"+str(l),0,400,200,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","SimHit energy sum per layer[MIP]","Fraction of events"),
-  ("UncalibratedRecHits_n_integral_in_layer"+str(l),0,400,200,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of RecHits per layer","Fraction of events"),
-  ("UncalibratedRecHits_amplitude_integral_in_layer"+str(l),0,400,200,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of MIP sum per layer","Fraction of events"),
-  ("UncalibratedRecHits_amplitude_integral_3D_in_layer"+str(l),0,400,200,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of MIP sum per layer","Fraction of events"),
+  ("SimHit_energy_integral_in_layer"+str(l),0,800,400,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","SimHit energy sum per layer[MIP]","Fraction of events"),
+  #("UncalibratedRecHits_n_integral_in_layer"+str(l),0,400,200,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of RecHits per layer","Fraction of events"),
+  ("UncalibratedRecHits_amplitude_integral_in_layer"+str(l),0,800,400,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of MIP sum per layer","Fraction of events"),
+  #("UncalibratedRecHits_amplitude_integral_3D_in_layer"+str(l),0,400,200,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of MIP sum per layer","Fraction of events"),
   #("RecHits_n_integral_in_layer"+str(l),0,100,100,"HGCRecHitsSorted_HGCalRecHit_HGCHEBRecHits_GENSIMDIGIRECO","energy","Number of RecHits per layer","Fraction of events"),
   #("RecHits_energy_integral_in_layer"+str(l),0,5,100,"HGCRecHitsSorted_HGCalRecHit_HGCHEBRecHits_GENSIMDIGIRECO","energy","Calibrated RecHit Energy sum per layer [GeV]","Fraction of events"),
     ]
@@ -187,6 +189,13 @@ if __name__=="__main__":
         histograms+=[
   #("Digi_data_integral_in_layer"+str(l)+"_in_ring"+str(r)+"_in_phi"+str(ph),0,20000,200,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC count sum per layer","Fraction of events"),
     ]
+
+  histograms=[
+  ("Digi_data_integral",0,200000,200,"DetIdHGCSampleHGCDataFramesSorted_mix_HGCDigisHEback_GENSIMDIGIRECO","data","ADC count sum per event","Fraction of events"),
+  ("SimHit_energy_integral",0,800,400,"PCaloHits_g4SimHits_HGCHitsHEback_GENSIMDIGIRECO","energy","SimHit energy [MIP]","Hits per event"),
+  ("UncalibratedRecHits_amplitude_integral",0,1000,100,"HGCUncalibratedRecHitsSorted_HGCalUncalibRecHit_HGCHEBUncalibRecHits_GENSIMDIGIRECO","amplitude","Number of MIPs","Hits per event"),
+  ]
+  
   hists={}
 
   files=[]
@@ -373,8 +382,8 @@ if __name__=="__main__":
     canvas = TCanvas(name+"_", name+"_", 0, 0, 300, 300)
 
     if not var=="size":
-      #hists[name].Scale(1./events.GetEntries())
-      pass
+      hists[name].Scale(1./events.GetEntries())
+      #pass
         
     if "3D" in name:
       projection=TH2F(name+"2D",name+"2D",phis,0.5,phis+0.5,rings,0.5,rings+0.5)

@@ -5,7 +5,7 @@ cmsenv
 echo "Working in /tmp/job$1/"
 mkdir /tmp/job$1
 cd /tmp/job$1
-cmsRun /afs/desy.de/user/h/hinzmann/hgcal/CMSSW_20_0_0_patch1/src/Geometry/HGCalTBCommonData/test/python/testHGCalTB24DESYV2_stack_cfg.py seed=$1
+cmsRun /afs/desy.de/user/h/hinzmann/hgcal/CMSSW_20_0_0_patch1/src/Geometry/HGCalTBCommonData/test/python/testHGCalTB24DESYV2_stack_cfg.py seed=$1 particle=$2 particleEnergy=$3
 echo "Writing output to /data/dust/user/hinzmann/hgcal"
 mkdir /data/dust/user/hinzmann/hgcal
 mkdir /data/dust/user/hinzmann/hgcal/job$1

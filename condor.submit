@@ -14,5 +14,5 @@ JobBatchName      = hgcalSimulation
 #RequestDisk       = 10G
 getenv            = True
 executable        = /usr/bin/sh
-arguments         = " condor.sh $(JobId)"
+arguments         = " condor.sh $(JobId) electron 20"
 queue 1
